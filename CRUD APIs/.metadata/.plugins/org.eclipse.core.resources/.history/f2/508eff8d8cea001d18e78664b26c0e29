@@ -1,0 +1,47 @@
+package com.example.demo.serviceImpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.EmployeeDto;
+import com.example.demo.entity.Employee;
+import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.service.EmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
+	@Override
+	public ResponseEntity<String> addEmployee(EmployeeDto employeeDto) {
+		Employee employee=new Employee();
+		employee.setEmployeeName(employeeDto.getEmployeeName());
+		employee.setEmail(employeeDto.getEmail());
+		employee.setEmployeeId(employeeDto.getEmployeeId());
+		employee.setDesignation(employeeDto.getDesignation());
+		employee.setPhoneNumber(employeeDto.getPhoneNumber());
+		employee.setSalary(employeeDto.getSalary());
+		employeeRepository.save(employee);
+		return new ResponseEntity<String>("Employee Added Successfully", HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<List> getAllEmployeeList() {
+		List<Employee>allEmployeeList=employeeRepository.findAll();
+		if(!allUserList.isEmpty())
+		{
+			return new ResponseEntity<List>(200,"All User List Get Successfully",allEmployeeList);
+		}
+		else
+		{
+			return new ResponseEntity<>(404,"User List is Not Found");
+		}
+	}
+
+}

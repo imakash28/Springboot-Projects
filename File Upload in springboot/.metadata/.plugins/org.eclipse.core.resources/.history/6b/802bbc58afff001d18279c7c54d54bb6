@@ -1,0 +1,19 @@
+package com.example.demo.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentService {
+	
+	@Autowired
+	private StudentRepository studentRepository;
+	
+	/**
+	 * In this class we are creating to methods
+	 * 1.	public void save menthod which takes MultipartFile(Excel file) as an arguement and it converts data from excel file to list of student and save it.
+	 * 
+	 * 2.	public List<Student> getAllStudent() it will return all the list of Student as JSON
+	 * */
+
+}

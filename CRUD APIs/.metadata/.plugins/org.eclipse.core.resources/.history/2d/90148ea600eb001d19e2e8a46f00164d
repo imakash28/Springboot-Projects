@@ -1,0 +1,41 @@
+package com.example.demo.controller;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.dto.EmployeeDto;
+import com.example.demo.dto.UpdateEmployeeDto;
+import com.example.demo.entity.Employee;
+import com.example.demo.response.Response;
+import com.example.demo.service.EmployeeService;
+
+
+@RestController
+public class EmployeeController {
+
+	@Autowired
+	private EmployeeService employeeService;
+
+	@PostMapping("/add")
+	public ResponseEntity<String> addEmployee(@RequestBody EmployeeDto employeeDto){
+		return employeeService.addEmployee(employeeDto);
+}
+	@GetMapping("/get-all-employee")
+	public ResponseEntity<List>getAllEmployeeList(){
+		return employeeService.getAllEmployeeList();
+	}
+	
+	@PostMapping("/update-user")
+	public ResponseEntity<String>updateEmployeeDetails(@RequestBody UpdateEmployeeDto updateEmployeeDto){
+		return employeeService.updateEmployeeDetails(updateEmployeeDto);
+	}
+	
+}

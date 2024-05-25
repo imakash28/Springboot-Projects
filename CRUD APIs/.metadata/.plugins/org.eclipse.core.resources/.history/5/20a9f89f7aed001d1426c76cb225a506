@@ -1,0 +1,21 @@
+package com.example.demo.entity;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.example.demo.enums.EmployeeStatus;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+@Document(collection="Employee")
+public class Employee {
+	@Id
+	private String employeeId;
+	
+	private String employeeName;
+	private String phoneNumber;
+	private String email;
+	private String designation;
+	private String salary;
+	
+	
+	private EmployeeStatus employeeStatus;
+}

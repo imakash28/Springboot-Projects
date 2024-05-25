@@ -1,0 +1,29 @@
+package com.example.demo.test;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.example.demo.controller.BookController;
+import com.example.demo.model.Book;
+import com.example.demo.repo.BookRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
+public class BookControllerTest {
+
+	private MockMvc mockMvc;
+	
+	ObjectMapper objectMapper=new ObjectMapper();
+	ObjectWriter objectWriter=objectMapper.writer();
+	
+	@Mock
+	private BookRepository bookRepository;
+	
+	@InjectMocks
+	private BookController bookController;
+	
+	// Lets create some test data:
+	
+	Book RECORD_1=new Book("1L","Atomic Habits","How to build Atomic Habits",5);
+}

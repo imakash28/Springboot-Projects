@@ -1,0 +1,12 @@
+#To Enable TRACE and DEBUG log level we need to do following configuration because bydefault only INFO,WARN and ERROR log levels are enabled
+logging.level.com.example.demo.controller=DEBUG
+
+#Logging pattern for console
+logging.pattern.console=%date{ISO8601}%-5level%class{0}:%L-[%X]%msg%n
+
+#Logging pattern for File
+logging.pattern.file=%date{ISO8601}%-5level%class{0}:%L-[%X]%msg%n
+
+#Output File
+logging.file.name=application.log
+

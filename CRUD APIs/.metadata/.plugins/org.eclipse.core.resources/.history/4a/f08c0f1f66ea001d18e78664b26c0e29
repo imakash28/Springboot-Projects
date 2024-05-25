@@ -1,0 +1,17 @@
+package com.example.demo.entity;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document("Employee")
+public class Employee {
+	@Id
+	private String employeeId;
+	
+	private String employeeName;
+	private String phoneNumber;
+	private String email;
+	private String designation;
+	private String salary;
+	
+
+}

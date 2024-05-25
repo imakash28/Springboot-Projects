@@ -1,0 +1,83 @@
+package com.example.demo.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.model.Book;
+import com.example.demo.repo.BookRepository;
+
+@RestController
+@RequestMapping(value="/book")
+public class BookController {
+
+	@Autowired
+	BookRepository bookRepository;
+	
+	
+	@GetMapping("/get-all-book-records")
+	public List<Book> getAllBookRecords(){
+		return bookRepository.findAll();
+	}
+	
+	@GetMapping("/get-book-By-Id")
+	public Book getBookById(@PathVariable(value="bookId")String bookId) {
+		return bookRepository.findById(bookId).get();
+	}
+	
+	@PostMapping("/create-book-record")
+	public Book createBookRecord(@RequestBody @Validated Book bookRecord) {
+		return bookRepository.save(bookRecord);
+	}
+	
+//	@PutMapping
+//	public Book updateBookRecord(@RequestBody @Validated Book bookRecord) throws NotFoundException{
+//		if(bookRecord == null || bookRecord.getBookId() == null) {
+//			throw new NotFoundException("BookRecord or ID must not be null");
+//		}
+//		Optional<Book> optionalBook=bookRepository.findById(bookRecord.getBookId());
+//		if(!optionalBook.isPresent()) {
+//			throw new NotFoundException("Book with ID: " + bookRecord.getBookId() + "does not Exist.");
+//		}
+//		Book existingBookRecord=optionalBook.get();
+//		existingBookRecord.setName(bookRecord.getName());
+//		existingBookRecord.setSummary(bookRecord.getSummary());
+//		existingBookRecord.setRating(bookRecord.getRating());
+//		
+//		return bookRepository.save(existingBookRecord);
+//		
+//	}
+	
+	@PutMapping("/update-book-record")
+	public Book updateBookRecord(@RequestBody @Validated Book bookRecord) throws ChangeSetPersister.NotFoundException {
+	    if(bookRecord == null || bookRecord.getBookId() == null) {
+	        throw new ChangeSetPersister.NotFoundException();
+	    }
+	    Optional<Book> optionalBook=bookRepository.findById(bookRecord.getBookId());
+	    if(!optionalBook.isPresent()) {
+	        throw new ChangeSetPersister.NotFoundException();
+	    }
+	    Book existingBookRecord=optionalBook.get();
+	    existingBookRecord.setName(bookRecord.getName());
+	    existingBookRecord.setSummary(bookRecord.getSummary());
+	    existingBookRecord.setRating(bookRecord.getRating());
+
+	    return bookRepository.save(existingBookRecord);
+
+	}
+	
+	// TODO: Write /delete endpoint using TDD Method
+
+	
+}

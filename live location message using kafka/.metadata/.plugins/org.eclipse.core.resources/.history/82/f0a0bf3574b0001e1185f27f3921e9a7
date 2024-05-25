@@ -1,0 +1,7 @@
+#We are using KeyValue in the kafkaService so we need to tell about the serializer of Key and Value
+
+
+#bin\windows]kafka-console-producer.bat --topic user-topic --bootstrap-server localhost:9092
+
+#Consuming message
+bin\windows\kafka-console-consumer.bat --topic user-topic --from-beginning --bootstrap-server localhost:9092

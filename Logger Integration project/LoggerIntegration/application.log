@@ -1,0 +1,20 @@
+2023-05-26 18:20:45,824INFO StartupInfoLogger:51-[]Starting LoggerIntegrationApplication using Java 17.0.6 with PID 21864 (C:\Users\AkashMaurya\Desktop\Logger Integration project\LoggerIntegration\target\classes started by AkashMaurya in C:\Users\AkashMaurya\Desktop\Logger Integration project\LoggerIntegration)
+2023-05-26 18:20:45,828INFO SpringApplication:633-[]No active profile set, falling back to 1 default profile: "default"
+2023-05-26 18:20:46,710INFO TomcatWebServer:108-[]Tomcat initialized with port(s): 8080 (http)
+2023-05-26 18:20:46,719INFO DirectJDKLog:173-[]Starting service [Tomcat]
+2023-05-26 18:20:46,722INFO DirectJDKLog:173-[]Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-05-26 18:20:46,819INFO DirectJDKLog:173-[]Initializing Spring embedded WebApplicationContext
+2023-05-26 18:20:46,820INFO ServletWebServerApplicationContext:291-[]Root WebApplicationContext: initialization completed in 948 ms
+2023-05-26 18:20:47,267INFO TomcatWebServer:220-[]Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-26 18:20:47,276INFO StartupInfoLogger:57-[]Started LoggerIntegrationApplication in 1.856 seconds (process running for 2.513)
+2023-05-26 18:20:50,872INFO DirectJDKLog:173-[]Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-26 18:20:50,874INFO FrameworkServlet:532-[]Initializing Servlet 'dispatcherServlet'
+2023-05-26 18:20:50,874INFO FrameworkServlet:554-[]Completed initialization in 0 ms
+2023-05-26 18:20:51,114INFO AbstractOpenApiResource:371-[]Init duration for springdoc-openapi is: 109 ms
+2023-05-26 18:20:55,202INFO MessageController:15-[][getMessage] info message
+2023-05-26 18:20:55,203WARN MessageController:16-[][getMessage] warn message
+2023-05-26 18:20:55,203ERRORMessageController:17-[][getMessage] error message
+2023-05-26 18:20:55,203DEBUGMessageController:18-[][getMessage] debug message
+2023-05-26 20:19:16,694INFO SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin:159-[]Application shutdown requested.
+2023-05-26 20:19:16,772INFO DirectJDKLog:173-[]Stopping service [Tomcat]
+2023-05-26 20:19:16,778INFO DirectJDKLog:173-[]Destroying Spring FrameworkServlet 'dispatcherServlet'

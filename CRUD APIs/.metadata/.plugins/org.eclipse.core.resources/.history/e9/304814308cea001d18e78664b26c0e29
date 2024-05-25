@@ -1,0 +1,11 @@
+package com.example.demo.service;
+
+import org.springframework.http.ResponseEntity;
+
+import com.example.demo.dto.EmployeeDto;
+
+public interface EmployeeService {
+
+	ResponseEntity<String> addEmployee(EmployeeDto employeeDto);
+
+}

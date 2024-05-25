@@ -1,0 +1,19 @@
+package com.example.demo.centralisedloggong;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+@Aspect
+@Component
+public class LoggingAdvice {
+
+	Logger Logger=LoggerFactory.getLogger(LoggingAdvice.class);
+	
+	@Pointcut(value="execution(* com.example.demo.*.*.*(..))")
+	public void myPointCut() {
+		
+	}
+}

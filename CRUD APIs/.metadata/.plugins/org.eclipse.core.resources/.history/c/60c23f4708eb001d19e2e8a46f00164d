@@ -1,0 +1,70 @@
+package com.example.demo.serviceImpl;
+
+import java.util.List;
+import java.util.Optional;
+import com.example.demo.enums.EmployeeStatus;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.EmployeeDto;
+import com.example.demo.dto.UpdateEmployeeDto;
+import com.example.demo.entity.Employee;
+import com.example.demo.enums.EmployeeStatus;
+import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.service.EmployeeService;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+	
+	@Autowired
+	private EmployeeRepository employeeRepository;
+
+	@Override
+	public ResponseEntity<String> addEmployee(EmployeeDto employeeDto) {
+		Employee employee=new Employee();
+		employee.setEmployeeName(employeeDto.getEmployeeName());
+		employee.setEmail(employeeDto.getEmail());
+		employee.setEmployeeId(employeeDto.getEmployeeId());
+		employee.setDesignation(employeeDto.getDesignation());
+		employee.setPhoneNumber(employeeDto.getPhoneNumber());
+		employee.setSalary(employeeDto.getSalary());
+		employee.setEmployeeStatus(EmployeeStatus.ACTIVE);
+		employeeRepository.save(employee);
+		return new ResponseEntity<String>("Employee Added Successfully", HttpStatus.OK);
+	}
+
+	
+
+	@Override
+	public ResponseEntity<List> getAllEmployeeList() {
+	    List<Employee> allEmployeeList = employeeRepository.findAll();
+	    if (!allEmployeeList.isEmpty()) {
+	        return ResponseEntity.ok(allEmployeeList);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
+	}
+
+
+
+	@Override
+	public ResponseEntity<String> updateEmployeeDetails(UpdateEmployeeDto updateEmployeeDto) {
+	    Optional<Employee> getEmployeeDetails = employeeRepository.findById(updateEmployeeDto.getEmployeeId());
+	    if (getEmployeeDetails.isPresent()) {
+	        getEmployeeDetails.get().setEmployeeName(updateEmployeeDto.getEmployeeName());
+	        getEmployeeDetails.get().setEmail(updateEmployeeDto.getEmail());
+	        getEmployeeDetails.get().setPhoneNumber(updateEmployeeDto.getPhoneNumber());
+	        getEmployeeDetails.get().setEmployeeStatus(EmployeeStatus.UPDATE);
+	        		employeeRepository.save(getEmployeeDetails.get());
+	        return ResponseEntity.ok("Employee Data Updated Successfully");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee Data Not Found");
+	    }
+	}
+
+
+}
+

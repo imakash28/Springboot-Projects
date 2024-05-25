@@ -1,0 +1,101 @@
+package com.example.demo.helper;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.model.Student;
+
+public class ExcelHelper {
+
+	/**
+	 * In this class we are writing 2 methods
+	 * 1. To check the multipart file we are giving is excel file or not?
+	 * 2.
+	 * */
+	
+//Check that file is excel type or not
+	public static boolean checkExcelFormat(MultipartFile file) {
+		String contentType=file.getContentType();
+		if(contentType.equals("application/vnd.ms-excel")) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+// Convert excel to List(List of Student)
+	public static List<Student> convertExcelTOListOfStudent(InputStream is){
+		List<Student> list=new ArrayList<>();
+		try {
+			
+			//we are using apache poi library for reading we have a class XSSFWorkbook so we creating object of this class
+			Workbook workbook=new Workbook(is);	// here we are passing [is->InputStream] that returns our workbook object
+			Sheet sheet=workbook.getSheet("file");	// here we are passing the name of the sheet as Student so that it can get the data from that sheet sheet is a local variable which is represented by the class XSSFSheet
+			//We are finding rows from the sheet and once we get the rows we could find the cells from that rows
+			
+			//we are using while loop/Iterator because there is n number of cells so we can take a variable as rowNumber which starts from 0
+			
+			int rowNumber=0;
+			Iterator<Row>iterator=sheet.iterator();	//Iterator of rows
+			
+			//Now we can using this iterator we can traverse each and every rows
+			while(iterator.hasNext())	//hasNext()returns true or false if it returns true then we can go to the next row
+			{
+				Row row=iterator.next();	//we are getting each node here
+				
+				if(rowNumber==0) 	//we are ignore first row always if it is more than 0 suppose 1 than we can need to find the data(cell) from that row
+				{
+					rowNumber++;
+					continue;
+				}
+				
+				Iterator<Cell> cells=row.iterator();
+				int cid=0;
+				
+				Student toSaveData=new Student();
+				while(cells.hasNext())
+				{
+					Cell cell=cells.next();
+					switch(cid) 
+					{
+					case 0:
+						toSaveData.setId(String.valueOf(row.getCell(1).getStringCellValue()));	//In this code, we use the getStringCellValue() method to retrieve the cell value as a String. Since the id field in your Employee class is a String, we convert the cell value to a String using String.valueOf() before setting it to the id field.
+						break;
+					case 1:
+						toSaveData.setName(cell.getStringCellValue());
+						break;
+					case 3:
+						toSaveData.setRoll_No(cell.getStringCellValue());
+						break;
+					case 4:
+						toSaveData.setBranch(cell.getStringCellValue());
+						break;
+						
+					default:
+						break;
+					}
+					cid++;	//here we are increasing cell id by 1 to traverse next cell once the all switch statement cases of current cell is executed 
+					
+				}
+				//Once the while loop is ended the we can add all the student means data from each cell is found and it will be stored in the student 
+				list.add(toSaveData);
+			}
+			
+			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+}
